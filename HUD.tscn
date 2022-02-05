@@ -8,9 +8,11 @@ size = 64
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
+size = 64
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
+size = 64
 font_data = ExtResource( 1 )
 
 [sub_resource type="InputEventAction" id=4]
