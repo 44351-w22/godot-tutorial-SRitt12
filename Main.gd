@@ -3,9 +3,11 @@ extends Node
 export (PackedScene) var Mob
 
 var score
+var highscore = 0
 
 
 signal new_game
+signal update_highscore(highscore)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,6 +16,9 @@ func _ready():
 
 func game_over():
 	$ScoreTimer.stop()
+	if score > highscore:
+		highscore = score
+	emit_signal("update_highscore", highscore)
 	$MobTimer.stop()
 	$HUD.show_game_over()
 	$Music.stop()

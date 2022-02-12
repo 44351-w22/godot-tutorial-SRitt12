@@ -17,6 +17,7 @@ func show_game_over():
 
 	$Message.text = "Dodge the\nCreeps!"
 	$Message.show()
+	$HighScore.show()
 	# Make a one-shot timer and wait for it to finish.
 	yield(get_tree().create_timer(1), "timeout")
 	$StartButton.show()
@@ -30,6 +31,7 @@ func _on_MessageTimer_timeout():
 
 func _on_StartButton_pressed():
 	$StartButton.hide()
+	$HighScore.hide()
 	emit_signal("start_game")
 	
 func update_health(health):
@@ -39,3 +41,5 @@ func update_health(health):
 		else:
 			$HeartContainer.get_child(i).texture = heart_empty
 
+func _on_Main_update_highscore(highscore):
+	$HighScore.text = ("High Score: " + str(highscore))
