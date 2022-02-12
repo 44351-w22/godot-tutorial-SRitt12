@@ -1,7 +1,10 @@
 extends Node
 
 export (PackedScene) var Mob
+
 var score
+
+
 signal new_game
 
 # Called when the node enters the scene tree for the first time.

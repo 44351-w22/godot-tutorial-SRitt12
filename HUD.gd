@@ -1,5 +1,8 @@
 extends CanvasLayer
 
+var heart_full = preload("heart_full.png")
+var heart_empty = preload("heart_empty.png")
+
 signal start_game
 
 func show_message(text):
@@ -28,3 +31,11 @@ func _on_MessageTimer_timeout():
 func _on_StartButton_pressed():
 	$StartButton.hide()
 	emit_signal("start_game")
+	
+func update_health(health):
+	for i in $HeartContainer.get_child_count():
+		if health > i:
+			$HeartContainer.get_child(i).texture = heart_full
+		else:
+			$HeartContainer.get_child(i).texture = heart_empty
+
