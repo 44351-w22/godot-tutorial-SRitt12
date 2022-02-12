@@ -51,6 +51,7 @@ func _process(delta):
 func _on_Player_body_entered(body):
 	health -= 1
 	emit_signal('hit', health)
+	$HitSound.play()
 	if health == 0:
 		hide()
 		emit_signal('death')
