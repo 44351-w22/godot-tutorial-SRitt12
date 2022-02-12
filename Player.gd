@@ -1,9 +1,11 @@
 extends Area2D
 
-signal hit
+signal hit(health)
+signal death
 
 export var speed = 400
 var screen_size 
+var health = 3
 
 
 # Called when the node enters the scene tree for the first time.
@@ -47,9 +49,12 @@ func _process(delta):
 
 
 func _on_Player_body_entered(body):
-	hide()
-	emit_signal('hit')
-	$CollisionShape2D.set_deferred("disabled", true)
+	health -= 1
+	emit_signal('hit', health)
+	if health == 0:
+		hide()
+		emit_signal('death')
+		$CollisionShape2D.set_deferred("disabled", true)
 	
 func start(pos):
 	position = pos

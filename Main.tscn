@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Mob.tscn" type="PackedScene" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://dodge_assets/art/gameover.wav" type="AudioStream" id=5]
 [ext_resource path="res://dodge_assets/art/House In a Forest Loop.ogg" type="AudioStream" id=6]
 [ext_resource path="res://underwater.png" type="Texture" id=7]
+[ext_resource path="res://HeartContainer.gd" type="Script" id=8]
+[ext_resource path="res://heart_full.png" type="Texture" id=9]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -57,7 +59,38 @@ curve = SubResource( 1 )
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 
-[connection signal="hit" from="Player" to="." method="game_over"]
+[node name="HeartContainer" type="HBoxContainer" parent="HUD"]
+margin_left = 2.0
+margin_top = 1.0
+margin_right = 151.0
+margin_bottom = 41.0
+rect_scale = Vector2( 4, 4 )
+custom_constants/separation = 3
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="H1" type="TextureRect" parent="HUD/HeartContainer"]
+margin_right = 15.0
+margin_bottom = 40.0
+texture = ExtResource( 9 )
+
+[node name="H2" type="TextureRect" parent="HUD/HeartContainer"]
+margin_left = 18.0
+margin_right = 33.0
+margin_bottom = 40.0
+texture = ExtResource( 9 )
+
+[node name="H3" type="TextureRect" parent="HUD/HeartContainer"]
+margin_left = 36.0
+margin_right = 51.0
+margin_bottom = 40.0
+texture = ExtResource( 9 )
+
+[connection signal="new_game" from="." to="HUD/HeartContainer" method="update_health"]
+[connection signal="death" from="Player" to="." method="game_over"]
+[connection signal="hit" from="Player" to="HUD/HeartContainer" method="update_health"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
